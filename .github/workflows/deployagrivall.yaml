@@ -17,5 +17,21 @@ jobs:
             cd /var/www/proyecto-Agrivall
             git fetch --all --prune
             git reset --hard origin/main
+            mkdir -p storage/logs storage/framework/{cache,sessions,views} bootstrap/cache
+            chmod -R 775 storage bootstrap/cache
             ./vendor/bin/sail up -d --build
+            echo "Waiting for MySQL to be ready..."
+            MAX_RETRIES=20
+            for i in $(seq 1 "$MAX_RETRIES"); do
+              if docker compose exec -T mysql mysqladmin ping --silent 2>/dev/null; then
+                echo "MySQL is ready."
+                break
+              fi
+              echo "  attempt $i/$MAX_RETRIES – retrying in 3 s..."
+              sleep 3
+              if [ "$i" -eq "$MAX_RETRIES" ]; then
+                echo "MySQL did not become ready in time" >&2
+                exit 1
+              fi
+            done
             ./vendor/bin/sail artisan migrate --force
