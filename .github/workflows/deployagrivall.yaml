@@ -13,9 +13,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            set -euo pipefail
+            set -e
             cd /var/www/proyecto-Agrivall
-            git fetch --all --prune
-            git reset --hard origin/main
+            git pull
             ./vendor/bin/sail up -d --build
             ./vendor/bin/sail artisan migrate --force
