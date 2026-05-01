@@ -18,8 +18,8 @@ use App\Http\Controllers\Admin\ReservaController;
 | Rutas públicas
 |--------------------------------------------------------------------------
 */
-Route::view('/', 'index');
-/*Route::get('/', [PublicController::class, 'index'])->name('home');*/
+/*Route::view('/', 'index');*/
+Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/productos', [PublicController::class, 'productos'])->name('productos.index');
 Route::get('/productos/{producto}', [PublicController::class, 'productoDetalle'])->name('productos.show');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
