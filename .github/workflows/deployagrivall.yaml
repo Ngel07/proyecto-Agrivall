@@ -20,4 +20,8 @@ jobs:
             git clean -fd
             git pull origin main
             ./vendor/bin/sail up -d
+            echo "Waiting for MySQL to be ready..."
+            until ./vendor/bin/sail exec -T mysql mysqladmin ping -h "localhost" --silent; do
+              sleep 2
+            done
             ./vendor/bin/sail artisan migrate --force
