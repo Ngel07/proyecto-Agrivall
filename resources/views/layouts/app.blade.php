@@ -3,8 +3,9 @@
 <head>
   @include('partials.head')
   <title>@yield('title', 'Agrivall — Naturaleza certificada, sabor inigualable')</title>
+  @stack('styles')
 </head>
-<body>
+<body class="@yield('body-class')">
 
   @include('partials.navbar')
 

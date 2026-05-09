@@ -26,18 +26,19 @@ class DatabaseSeeder extends Seeder
         );
 
         $productos = [
-            ['nombre' => 'Cerezas',      'formato' => '1 kg',  'precio' => 6.50],
-            ['nombre' => 'Cerezas',      'formato' => '4 kg',  'precio' => 22.00],
-            ['nombre' => 'Albaricoques', 'formato' => '1 kg',  'precio' => 4.25],
-            ['nombre' => 'Albaricoques', 'formato' => '4 kg',  'precio' => 15.00],
-            ['nombre' => 'Nueces',       'formato' => '1 kg',  'precio' => 8.75],
-            ['nombre' => 'Nueces',       'formato' => '4 kg',  'precio' => 32.00],
+            ['nombre' => 'Cerezas',      'formato' => '1 kg',  'precio' => 6.50,  'imagen' => 'images/cerezas1K.png'],
+            ['nombre' => 'Cerezas',      'formato' => '4 kg',  'precio' => 22.00, 'imagen' => 'images/cerezas4K.png'],
+            ['nombre' => 'Albaricoques', 'formato' => '1 kg',  'precio' => 4.25,  'imagen' => 'images/albaricoque1K.png'],
+            ['nombre' => 'Albaricoques', 'formato' => '4 kg',  'precio' => 15.00, 'imagen' => 'images/albaricoque4K.png'],
+            ['nombre' => 'Nueces',       'formato' => '1 kg',  'precio' => 8.75,  'imagen' => 'images/nueces1K.png'],
+            ['nombre' => 'Nueces',       'formato' => '4 kg',  'precio' => 32.00, 'imagen' => 'images/nueces4k.png'],
+            ['nombre' => 'Hierbas',      'formato' => '1 kg',  'precio' => 5.50,  'imagen' => 'images/hierbas.png'],
         ];
 
         foreach ($productos as $datos) {
-            Producto::firstOrCreate(
+            Producto::updateOrCreate(
                 ['nombre' => $datos['nombre'], 'formato' => $datos['formato']],
-                ['precio' => $datos['precio'], 'disponible' => true]
+                ['precio' => $datos['precio'], 'imagen' => $datos['imagen'], 'disponible' => true]
             );
         }
     }
