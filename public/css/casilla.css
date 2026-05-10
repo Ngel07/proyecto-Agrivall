@@ -1,0 +1,462 @@
+/* AGRIVALL — casilla.css  |  mobile-first */
+
+/* ── Sección principal ── */
+.casilla-section {
+  background: #fff;
+  padding: 28px 16px 56px;
+}
+
+.casilla-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* Columna izquierda: carrusel + descripción */
+.casilla-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Descripción ── */
+.casilla-desc {
+  background: #f5f9f0;
+  border: 1.5px solid #dde8d0;
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+
+.casilla-desc__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.casilla-desc__text {
+  font-size: 14px;
+  color: var(--text-gray);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.casilla-desc__features {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.casilla-desc__features li {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.casilla-desc__features li i {
+  color: var(--green-medium);
+  font-size: 14px;
+  width: 16px;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════
+   CARRUSEL
+   ══════════════════════════════════════ */
+.casilla-carousel {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  aspect-ratio: 16/9;
+  background: #e9f5de;
+  cursor: pointer;
+  user-select: none;
+}
+
+.casilla-carousel__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.casilla-carousel__slide {
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.casilla-carousel__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* Flechas */
+.casilla-carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.85);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--green-dark);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  z-index: 2;
+  backdrop-filter: blur(4px);
+}
+
+.casilla-carousel__btn:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.casilla-carousel__btn--prev { left: 12px; }
+.casilla-carousel__btn--next { right: 12px; }
+
+/* Puntos indicadores */
+.casilla-carousel__dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  z-index: 2;
+}
+
+.casilla-carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.casilla-carousel__dot.is-active {
+  background: #fff;
+  transform: scale(1.25);
+}
+
+/* ══════════════════════════════════════
+   PANEL DERECHO (calendario + form)
+   ══════════════════════════════════════ */
+.casilla-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ── Precio destacado ── */
+.casilla-price-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.casilla-price-tag__amount {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--red-card-text);
+}
+
+.casilla-price-tag__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-gray);
+}
+
+/* ── Calendario ── */
+.casilla-cal {
+  background: #f5f9f0;
+  border: 1.5px solid #dde8d0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.casilla-cal__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--green-medium);
+  padding: 10px 14px;
+  color: #fff;
+}
+
+.casilla-cal__nav-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background var(--transition);
+  line-height: 1;
+}
+
+.casilla-cal__nav-btn:hover { background: rgba(255,255,255,0.2); }
+
+.casilla-cal__month-label {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.casilla-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+
+.casilla-cal__weekday {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-gray);
+  padding: 8px 0 4px;
+  text-transform: uppercase;
+}
+
+.casilla-cal__day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  border-radius: 8px;
+  margin: 2px;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  border: none;
+  background: none;
+}
+
+.casilla-cal__day:hover:not(.is-disabled):not(.is-empty) {
+  background: var(--green-card-bg);
+  color: var(--green-dark);
+}
+
+.casilla-cal__day.is-selected {
+  background: var(--green-medium);
+  color: #fff;
+}
+
+.casilla-cal__day.is-in-range {
+  background: var(--green-card-bg);
+  color: var(--green-dark);
+  border-radius: 0;
+}
+
+.casilla-cal__day.is-range-start { border-radius: 8px 0 0 8px; }
+.casilla-cal__day.is-range-end   { border-radius: 0 8px 8px 0; }
+
+.casilla-cal__day.is-disabled {
+  color: #c8d4be;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.casilla-cal__day.is-empty {
+  cursor: default;
+}
+
+.casilla-cal__day.is-today {
+  font-weight: 900;
+  color: var(--green-medium);
+}
+
+.casilla-cal__legend {
+  display: flex;
+  gap: 16px;
+  padding: 10px 14px;
+  border-top: 1px solid #dde8d0;
+  flex-wrap: wrap;
+}
+
+.casilla-cal__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-gray);
+}
+
+.casilla-cal__legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.casilla-cal__legend-dot--available  { background: var(--green-medium); }
+.casilla-cal__legend-dot--unavailable { background: #c8d4be; }
+.casilla-cal__legend-dot--selected   { background: var(--green-medium); border: 2px solid var(--green-dark); }
+
+/* ── Formulario ── */
+.casilla-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.casilla-form__title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+
+.casilla-form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.casilla-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.casilla-form__label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.casilla-form__input {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid #c8ddb0;
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: var(--text-dark);
+  transition: border-color var(--transition);
+}
+
+.casilla-form__input:focus {
+  outline: none;
+  border-color: var(--green-medium);
+}
+
+.casilla-form__input::placeholder {
+  color: #aab8a0;
+}
+
+.casilla-form__dates-display {
+  background: var(--green-card-bg);
+  border: 1.5px solid #c8ddb0;
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-dark);
+  min-height: 44px;
+}
+
+.casilla-form__dates-display.is-empty {
+  color: #aab8a0;
+  font-weight: 500;
+}
+
+.casilla-form__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--green-medium);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  margin-top: 4px;
+}
+
+.casilla-form__btn:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (min-width: 769px) {
+
+  .casilla-section {
+    padding: 40px 40px 64px;
+  }
+
+  .casilla-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+  }
+
+  .casilla-left {
+    width: 50%;
+    flex-shrink: 0;
+  }
+
+  .casilla-carousel {
+    width: 100%;
+    aspect-ratio: 4/3;
+  }
+
+  .casilla-panel {
+    flex: 1;
+  }
+
+  .casilla-form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1025px) {
+
+  .casilla-section {
+    padding: 48px 60px 72px;
+  }
+
+  .casilla-left {
+    width: 52%;
+  }
+
+  .casilla-carousel__btn {
+    width: 48px;
+    height: 48px;
+    font-size: 17px;
+  }
+}

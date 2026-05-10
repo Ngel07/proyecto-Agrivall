@@ -13,6 +13,8 @@
     @yield('content')
   </main>
 
+  @include('partials.footer')
+
   <script src="{{ asset('js/navbar.js') }}"></script>
   @stack('scripts')
 

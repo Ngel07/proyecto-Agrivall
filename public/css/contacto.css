@@ -1,0 +1,172 @@
+/* ─── CONTACTO — contacto.css  |  mobile-first ─── */
+
+/* ── SECCIÓN PRINCIPAL ─────────────────────────────────────────── */
+.contacto-section {
+  padding: 40px 16px 60px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ── INTRO ──────────────────────────────────────────────────────── */
+.contacto-intro {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.contacto-intro__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--green-card-bg);
+  color: var(--green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 16px;
+}
+
+.contacto-intro__text {
+  font-size: 15px;
+  color: var(--text-gray);
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── TARJETA FORMULARIO ─────────────────────────────────────────── */
+.contacto-card {
+  background: #fff;
+  border: 1.5px solid #e8f0dd;
+  border-radius: var(--radius-card);
+  padding: 28px 22px;
+  box-shadow: 0 2px 14px rgba(45, 90, 27, 0.07);
+}
+
+/* ── CAMPOS ─────────────────────────────────────────────────────── */
+.contacto-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+.contacto-field:last-of-type { margin-bottom: 0; }
+
+.contacto-field label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-gray);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contacto-field input,
+.contacto-field textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #d4e4c8;
+  border-radius: 10px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-dark);
+  background: #fff;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  resize: none;
+}
+
+.contacto-field input:focus,
+.contacto-field textarea:focus {
+  border-color: var(--green-dark);
+  box-shadow: 0 0 0 3px rgba(45, 90, 27, 0.12);
+}
+
+.contacto-field input::placeholder,
+.contacto-field textarea::placeholder { color: #b0bfaa; }
+
+.contacto-field textarea { min-height: 140px; }
+
+/* ── BOTÓN ENVIAR ────────────────────────────────────────────────── */
+.contacto-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 22px;
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-medium) 100%);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 15px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: filter var(--transition), transform var(--transition);
+  box-shadow: 0 4px 18px rgba(45, 90, 27, 0.35);
+}
+.contacto-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* ── PLACEHOLDER MAPA ───────────────────────────────────────────── */
+.contacto-map {
+  margin-top: 48px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1.5px solid #e8f0dd;
+  box-shadow: 0 2px 14px rgba(45, 90, 27, 0.07);
+}
+
+.contacto-map__placeholder {
+  background: var(--green-card-bg);
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--green-dark);
+}
+
+.contacto-map__placeholder i {
+  font-size: 36px;
+  opacity: 0.55;
+}
+
+.contacto-map__placeholder p {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-gray);
+}
+
+.contacto-map__caption {
+  padding: 14px 18px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-gray);
+  border-top: 1.5px solid #e8f0dd;
+}
+.contacto-map__caption i {
+  color: var(--green-dark);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────── */
+@media (min-width: 769px) {
+  .contacto-section { padding: 52px 32px 80px; }
+  .contacto-card    { padding: 36px 32px; }
+  .contacto-map__placeholder { height: 320px; }
+}
+
+@media (min-width: 1024px) {
+  .contacto-section { padding: 60px 48px 100px; }
+}
