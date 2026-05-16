@@ -3,7 +3,6 @@
 <head>
   @include('partials.head')
   <title>@yield('title', 'Panel Admin — Agrivall')</title>
-  <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
   <link rel="stylesheet" href="{{ asset('css/admin-panel.css') }}">
   @stack('styles')
 </head>

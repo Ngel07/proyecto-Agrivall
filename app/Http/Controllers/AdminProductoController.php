@@ -9,7 +9,7 @@ class AdminProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::latest()->simplePaginate(20);
+        $productos = Producto::latest()->paginate(20);
 
         return view('admin.productos.index', compact('productos'));
     }
