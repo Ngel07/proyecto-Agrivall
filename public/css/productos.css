@@ -317,6 +317,10 @@
 /* ── Tablet (≥ 769px) ── */
 @media (min-width: 769px) {
 
+  .prod-filters {
+    margin-top: calc(var(--navbar-height) * 1.2);
+  }
+
   .prod-header {
     padding: calc(var(--navbar-height) + 20px + 32px) 40px 32px;
     min-height: 220px;
@@ -401,7 +405,7 @@
 
   .prod-filters {
     padding: 20px 40px;
-    margin-top: 120px;
+    margin-top: calc(var(--navbar-height) * 1.2);
   }
 
   .prod-section {

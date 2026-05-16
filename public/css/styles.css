@@ -237,7 +237,7 @@ a { text-decoration: none; color: inherit; }
 /* ─── HERO ─── */
 .hero {
   position: relative;
-  min-height: 100svh;
+  min-height: 90svh;
   display: flex;
   align-items: center;
   background-image: url('../images/bg-frutas.png');
@@ -249,8 +249,8 @@ a { text-decoration: none; color: inherit; }
 .hero__content {
   position: relative;
   z-index: 2;
-  max-width: 100%;
-  padding: calc(var(--navbar-height) + 24px) 22px 60px;
+  max-width: 50%;
+  padding: calc(var(--navbar-height) + 5px) 22px 120px;
 }
 
 /* Decorative green line above heading */
@@ -261,7 +261,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .hero__heading {
-  font-size: clamp(36px, 10vw, 52px);
+  font-size: clamp(30px, 8vw, 45px);
   font-weight: 700;
   line-height: 1.02;
   letter-spacing: -0.01em;
@@ -700,16 +700,16 @@ a { text-decoration: none; color: inherit; }
   }
 
   .hero__content {
-    padding: 48px 40px 130px;
+    padding: 48px 40px 120px;
     max-width: 580px;
   }
 
   .hero__heading {
-    font-size: clamp(42px, 6vw, 72px);
+    font-size: clamp(42px, 6em, 60px);
   }
 
   .hero__subtitle {
-    font-size: clamp(14px, 1.6vw, 17px);
+    font-size: clamp(14px, 1.6rem, 17px);
   }
 
   .hero__cta {
@@ -770,7 +770,7 @@ a { text-decoration: none; color: inherit; }
 
   /* Hero */
   .hero__content {
-    padding: calc(var(--navbar-height) + 40px) 60px 120px;
+    padding: calc(var(--navbar-height) + 30px) 60px 100px;
   }
 
   .hero__scroll {
@@ -991,3 +991,206 @@ a { text-decoration: none; color: inherit; }
   .site-footer__top { padding: 28px 0 24px; }
   .site-footer__inner { padding: 0 48px; }
 }
+
+/* ─── FLASH CARRITO ─── */
+.flash-carrito {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--green-dark);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0,0,0,.18);
+  transition: opacity .4s ease;
+}
+.flash-carrito i { font-size: 16px; color: var(--green-accent); }
+
+/* ─── PANEL ADMIN ─── */
+.admin-panel-body {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f6f3;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 240px;
+  background: var(--green-dark);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: transform .25s ease;
+}
+.admin-sidebar--open { transform: none; }
+@media (min-width: 900px) { .admin-sidebar { transform: none; } }
+
+.admin-sidebar__logo {
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.admin-sidebar__logo img { height: 44px; object-fit: contain; }
+
+.admin-sidebar__nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+  gap: 4px;
+}
+
+.admin-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: rgba(255,255,255,.75);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .15s, color .15s;
+}
+.admin-sidebar__link:hover,
+.admin-sidebar__link--active {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+.admin-sidebar__link i { width: 18px; text-align: center; }
+
+.admin-sidebar__footer {
+  padding: 16px 12px;
+  border-top: 1px solid rgba(255,255,255,.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.admin-sidebar__user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,.65);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0 4px;
+}
+.admin-sidebar__logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background .15s, color .15s;
+}
+.admin-sidebar__logout:hover { background: rgba(255,255,255,.1); color: #fff; }
+
+/* Main area */
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: 0;
+  transition: margin-left .25s;
+}
+@media (min-width: 900px) { .admin-main { margin-left: 240px; } }
+
+/* Topbar */
+.admin-topbar {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  height: 60px;
+  border-bottom: 1px solid #e4eed9;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.admin-topbar__toggle {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--green-dark);
+  cursor: pointer;
+  display: flex;
+}
+@media (min-width: 900px) { .admin-topbar__toggle { display: none; } }
+
+.admin-topbar__title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--green-dark);
+}
+
+/* Content */
+.admin-content { padding: 28px 24px; }
+
+/* Dashboard cards */
+.admin-dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  max-width: 900px;
+}
+
+.admin-dash-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid #e4eed9;
+  border-radius: 14px;
+  padding: 20px;
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: box-shadow .2s, border-color .2s;
+}
+.admin-dash-card:hover {
+  border-color: var(--green-medium);
+  box-shadow: 0 4px 16px rgba(58,122,34,.12);
+}
+
+.admin-dash-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--green-card-bg);
+  color: var(--green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.admin-dash-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.admin-dash-card__label { font-weight: 800; font-size: 15px; }
+.admin-dash-card__sub   { font-size: 12px; color: var(--text-gray); }
+.admin-dash-card__arrow { color: var(--text-gray); font-size: 13px; }

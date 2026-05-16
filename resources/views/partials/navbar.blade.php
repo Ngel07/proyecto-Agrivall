@@ -30,9 +30,12 @@
   <div class="navbar__actions">
 
     {{-- Icono carrito --}}
-    <a href="{{ route('carrito.index') }}" class="navbar__cart" aria-label="Ver carrito">
+    @php $carritoCount = collect(session('carrito', []))->sum('cantidad'); @endphp
+    <a href="{{ route('carrito.index') }}" class="navbar__cart" aria-label="Ver carrito ({{ $carritoCount }} artículos)">
       <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
-      <span class="navbar__cart-badge">3</span>
+      @if ($carritoCount > 0)
+        <span class="navbar__cart-badge">{{ $carritoCount }}</span>
+      @endif
     </a>
 
     @auth

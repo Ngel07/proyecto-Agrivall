@@ -219,6 +219,12 @@
   border-bottom: 1px solid #dde8d0;
 }
 
+@media (min-width: 769px) {
+  .blog-detail-header {
+    margin-top: calc(var(--navbar-height) * 1.2);
+  }
+}
+
 .blog-detail-header__inner {
   max-width: 860px;
   margin: 0 auto;

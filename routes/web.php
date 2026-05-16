@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\CasillaController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminProductoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,25 +25,25 @@ Route::get('/casilla', [CasillaController::class, 'index'])->name('casilla.index
 Route::get('/contacto', fn() => view('contacto.index'))->name('contacto.index');
 
 Route::prefix('carrito')->name('carrito.')->group(function () {
-    Route::get('/', fn() => view('carrito.index'))->name('index');
-    Route::post('/añadir/{producto}', fn() => back())->name('añadir');
-    Route::redirect('/actualizar/{producto}', '/')->name('actualizar');
-    Route::redirect('/eliminar/{producto}', '/')->name('eliminar');
-    Route::redirect('/vaciar', '/')->name('vaciar');
+    Route::get('/',                             [CarritoController::class, 'index'])->name('index');
+    Route::post('/añadir/{producto}',           [CarritoController::class, 'añadir'])->name('añadir');
+    Route::patch('/actualizar/{productoId}',    [CarritoController::class, 'actualizar'])->name('actualizar');
+    Route::delete('/eliminar/{productoId}',     [CarritoController::class, 'eliminar'])->name('eliminar');
+    Route::delete('/vaciar',                    [CarritoController::class, 'vaciar'])->name('vaciar');
 });
 
 Route::prefix('pedido')->name('pedido.')->group(function () {
-    Route::get('/checkout', fn() => view('pedido.checkout'))->name('checkout');
-    Route::post('/confirmar', fn() => redirect(route('pedido.confirmacion', ['pedido' => 1001])))->name('confirmar');
-    Route::get('/confirmacion/{pedido}', fn(string $pedido) => view('pedido.confirmacion', ['numeroPedido' => $pedido]))->name('confirmacion');
+    Route::get('/checkout',              [PedidoController::class, 'checkout'])->name('checkout');
+    Route::post('/confirmar',            [PedidoController::class, 'confirmar'])->name('confirmar');
+    Route::get('/confirmacion/{pedido}', fn(\App\Models\Pedido $pedido) => view('pedido.confirmacion', compact('pedido')))->name('confirmacion');
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::redirect('/', '/')->name('dashboard');
-    Route::redirect('/productos', '/')->name('productos.index');
-    Route::redirect('/posts', '/')->name('posts.index');
-    Route::redirect('/pedidos', '/')->name('pedidos.index');
-    Route::redirect('/reservas', '/')->name('reservas.index');
+Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+    Route::get('/',  fn() => view('admin.dashboard'))->name('dashboard');
+    Route::resource('productos', AdminProductoController::class)->except(['show']);
+    Route::redirect('/posts',    '/admin')->name('posts.index');
+    Route::redirect('/pedidos',  '/admin')->name('pedidos.index');
+    Route::redirect('/reservas', '/admin')->name('reservas.index');
 });
 
 /*
@@ -47,6 +51,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 | Autenticación (solo para el admin)
 |--------------------------------------------------------------------------
 */
-Route::get('/admin/login', fn() => view('admin.auth.login'))->name('login');
-Route::post('/admin/login', fn() => redirect('/'));
-Route::post('/admin/logout', fn() => redirect('/'))->name('logout');
+Route::get('/admin/login',  [AdminAuthController::class, 'login'])->name('login');
+Route::post('/admin/login', [AdminAuthController::class, 'authenticate']);
+Route::post('/admin/logout',[AdminAuthController::class, 'logout'])->name('logout');

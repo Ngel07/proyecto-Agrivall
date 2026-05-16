@@ -8,36 +8,6 @@
   <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
 @endpush
 
-@php
-$items = [
-  [
-    'nombre'   => 'Cerezas ecológicas',
-    'formato'  => '1 kg',
-    'precio'   => 8.50,
-    'cantidad' => 2,
-    'imagen'   => 'images/cerezas1K.png',
-  ],
-  [
-    'nombre'   => 'Nueces ecológicas',
-    'formato'  => '4 kg',
-    'precio'   => 22.00,
-    'cantidad' => 1,
-    'imagen'   => 'images/nueces4k.png',
-  ],
-  [
-    'nombre'   => 'Albaricoques ecológicos',
-    'formato'  => '1 kg',
-    'precio'   => 7.00,
-    'cantidad' => 3,
-    'imagen'   => 'images/albaricoque1K.png',
-  ],
-];
-
-$subtotal = collect($items)->sum(fn($i) => $i['precio'] * $i['cantidad']);
-$envio    = $subtotal >= 40 ? 0 : 4.95;
-$total    = $subtotal + $envio;
-@endphp
-
 @section('content')
 
   {{-- ── CABECERA ─────────────────────────────────────────────── --}}
@@ -82,6 +52,18 @@ $total    = $subtotal + $envio;
 
       <div class="checkout-inner">
 
+        {{-- ── ERRORES DE VALIDACIÓN ── --}}
+        @if ($errors->any())
+          <div class="checkout-errors" role="alert">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+
         {{-- ── COLUMNA FORMULARIO ── --}}
         <div class="checkout-form-col">
 
@@ -96,27 +78,27 @@ $total    = $subtotal + $envio;
 
               <div class="checkout-field">
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Juan" autocomplete="given-name">
+                <input type="text" id="nombre" name="nombre" value="{{ old('nombre') }}" placeholder="Juan" autocomplete="given-name">
               </div>
 
               <div class="checkout-field">
                 <label for="apellidos">Apellidos</label>
-                <input type="text" id="apellidos" name="apellidos" placeholder="García López" autocomplete="family-name">
+                <input type="text" id="apellidos" name="apellidos" value="{{ old('apellidos') }}" placeholder="García López" autocomplete="family-name">
               </div>
 
               <div class="checkout-field checkout-grid--col-span-2">
                 <label for="direccion">Dirección</label>
-                <input type="text" id="direccion" name="direccion" placeholder="Calle Mayor, 14, 2ºA" autocomplete="street-address">
+                <input type="text" id="direccion" name="direccion" value="{{ old('direccion') }}" placeholder="Calle Mayor, 14, 2ºA" autocomplete="street-address">
               </div>
 
               <div class="checkout-field">
                 <label for="cp">Código postal</label>
-                <input type="text" id="cp" name="cp" placeholder="28001" autocomplete="postal-code" maxlength="5">
+                <input type="text" id="cp" name="cp" value="{{ old('cp') }}" placeholder="28001" autocomplete="postal-code" maxlength="5">
               </div>
 
               <div class="checkout-field">
                 <label for="localidad">Localidad</label>
-                <input type="text" id="localidad" name="localidad" placeholder="Madrid" autocomplete="address-level2">
+                <input type="text" id="localidad" name="localidad" value="{{ old('localidad') }}" placeholder="Madrid" autocomplete="address-level2">
               </div>
 
               <div class="checkout-field">
@@ -178,12 +160,17 @@ $total    = $subtotal + $envio;
 
               <div class="checkout-field">
                 <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="612 345 678" autocomplete="tel">
+                <input type="tel" id="telefono" name="telefono" value="{{ old('telefono') }}" placeholder="612 345 678" autocomplete="tel">
+              </div>
+
+              <div class="checkout-field checkout-grid--col-span-2">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="juan@ejemplo.com" autocomplete="email">
               </div>
 
               <div class="checkout-field checkout-grid--col-span-2">
                 <label for="notas">Notas del pedido <span style="font-weight:400;text-transform:none;">(opcional)</span></label>
-                <input type="text" id="notas" name="notas" placeholder="Instrucciones especiales, horario de entrega...">
+                <input type="text" id="notas" name="notas" value="{{ old('notas') }}" placeholder="Instrucciones especiales, horario de entrega...">
               </div>
 
             </div>
@@ -272,7 +259,7 @@ $total    = $subtotal + $envio;
             <span>{{ number_format($total, 2, ',', '.') }}&euro;</span>
           </div>
 
-          <button type="button" class="checkout-summary__btn">
+          <button type="submit" class="checkout-summary__btn">
             <i class="fa-solid fa-check" aria-hidden="true"></i>
             Confirmar pedido
           </button>

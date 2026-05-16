@@ -8,43 +8,6 @@
   <link rel="stylesheet" href="{{ asset('css/carrito.css') }}">
 @endpush
 
-@php
-  // Datos de ejemplo (sin lógica real)
-  $items = [
-    [
-      'id'         => 1,
-      'nombre'     => 'Cerezas ecológicas',
-      'variedad'   => 'Picota del Jerte',
-      'formato'    => '1 kg',
-      'precio'     => 5.90,
-      'cantidad'   => 2,
-      'imagen'     => 'images/cereza-default.png',
-    ],
-    [
-      'id'         => 2,
-      'nombre'     => 'Almendras crudas',
-      'variedad'   => 'Marcona',
-      'formato'    => '500 g',
-      'precio'     => 8.50,
-      'cantidad'   => 1,
-      'imagen'     => 'images/cereza-default.png',
-    ],
-    [
-      'id'         => 3,
-      'nombre'     => 'Menta fresca',
-      'variedad'   => null,
-      'formato'    => '200 g',
-      'precio'     => 2.40,
-      'cantidad'   => 3,
-      'imagen'     => 'images/cereza-default.png',
-    ],
-  ];
-
-  $subtotal = collect($items)->sum(fn($i) => $i['precio'] * $i['cantidad']);
-  $envio    = $subtotal >= 40 ? 0 : 4.95;
-  $total    = $subtotal + $envio;
-@endphp
-
 @section('content')
 
   {{-- ── CABECERA ─────────────────────────────────────────────── --}}
@@ -120,18 +83,25 @@
                 </form>
 
                 {{-- Cantidad --}}
-                <div class="carrito-item__qty">
-                  <button type="button" class="carrito-item__qty-btn" aria-label="Reducir cantidad">−</button>
+                <form
+                  method="POST"
+                  action="{{ route('carrito.actualizar', $item['id']) }}"
+                  class="carrito-item__qty"
+                >
+                  @csrf
+                  @method('PATCH')
+                  <button type="button" class="carrito-item__qty-btn js-qty-dec" aria-label="Reducir cantidad">−</button>
                   <input
                     type="number"
+                    name="cantidad"
                     class="carrito-item__qty-input"
                     value="{{ $item['cantidad'] }}"
                     min="1"
                     max="99"
                     aria-label="Cantidad de {{ $item['nombre'] }}"
                   >
-                  <button type="button" class="carrito-item__qty-btn" aria-label="Aumentar cantidad">+</button>
-                </div>
+                  <button type="button" class="carrito-item__qty-btn js-qty-inc" aria-label="Aumentar cantidad">+</button>
+                </form>
 
                 {{-- Subtotal --}}
                 <span class="carrito-item__subtotal">
@@ -209,3 +179,28 @@
   @include('partials.trust-certs')
 
 @endsection
+
+@push('scripts')
+<script>
+  document.querySelectorAll('.carrito-item__qty').forEach(function (form) {
+    var input = form.querySelector('.carrito-item__qty-input');
+    var dec   = form.querySelector('.js-qty-dec');
+    var inc   = form.querySelector('.js-qty-inc');
+
+    dec.addEventListener('click', function () {
+      var val = parseInt(input.value, 10);
+      if (val > 1) { input.value = val - 1; form.submit(); }
+    });
+
+    inc.addEventListener('click', function () {
+      var val = parseInt(input.value, 10);
+      if (val < 99) { input.value = val + 1; form.submit(); }
+    });
+
+    input.addEventListener('change', function () {
+      var val = parseInt(input.value, 10);
+      if (val >= 1 && val <= 99) { form.submit(); }
+    });
+  });
+</script>
+@endpush
