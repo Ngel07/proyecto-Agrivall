@@ -8,6 +8,7 @@ use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminProductoController;
+use App\Http\Controllers\AdminPedidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +42,9 @@ Route::prefix('pedido')->name('pedido.')->group(function () {
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('/',  fn() => view('admin.dashboard'))->name('dashboard');
     Route::resource('productos', AdminProductoController::class)->except(['show']);
+    Route::resource('pedidos', AdminPedidoController::class)->only(['index', 'show']);
+    Route::patch('pedidos/{pedido}/estado', [AdminPedidoController::class, 'updateEstado'])->name('pedidos.updateEstado');
     Route::redirect('/posts',    '/admin')->name('posts.index');
-    Route::redirect('/pedidos',  '/admin')->name('pedidos.index');
     Route::redirect('/reservas', '/admin')->name('reservas.index');
 });
 
