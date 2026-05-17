@@ -234,6 +234,33 @@ a { text-decoration: none; color: inherit; }
 }
 .navbar__hamburger:hover { opacity: 0.8; }
 
+/* Switcher de idioma */
+.navbar__locale {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.navbar__locale-btn {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: rgba(255,255,255,.65);
+  text-decoration: none;
+  padding: 3px 7px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition);
+}
+.navbar__locale-btn:hover,
+.navbar__locale-btn.is-active {
+  color: #fff;
+  background: rgba(255,255,255,.18);
+}
+.navbar__locale-sep {
+  color: rgba(255,255,255,.3);
+  font-size: 11px;
+  user-select: none;
+}
+
 
 /* ─── HERO ─── */
 .hero {

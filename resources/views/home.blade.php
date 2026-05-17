@@ -13,25 +13,21 @@
       </div>
 
       <h1 class="hero__heading">
-        NATURALEZA<br>
-        <span class="hero__heading--accent">CERTIFICADA,</span><br>
-        SABOR<br>
-        INIGUALABLE
+        {!! nl2br(e(__('home.hero_title'))) !!}
       </h1>
 
       <p class="hero__subtitle">
-        Frutas seleccionadas con el máximo cuidado,<br>
-        directo del campo a tu mesa en <strong class="hero__gold">24h</strong>.
+        {!! __('home.hero_subtitle') !!}
       </p>
 
       <a href="{{ route('productos.index') }}" class="hero__cta">
-        VER PRODUCTOS
+        {{ __('home.hero_cta') }}
       </a>
 
     </div><!-- /.hero__content -->
 
     <div class="hero__scroll" aria-hidden="true">
-      <span>Descubre más</span>
+      <span>{{ __('home.hero_discover') }}</span>
       <i class="fa-solid fa-angles-down"></i>
     </div>
   </section>
@@ -47,9 +43,9 @@
         </div>
 
         <div class="card__body">
-          <h2 class="card__title card__title--green">PRODUCTOS</h2>
-          <p class="card__desc">Descubre nuestra selección de frutas de temporada.</p>
-          <a href="{{ route('productos.index') }}" class="card__link card__link--green">Ver catálogo →</a>
+          <h2 class="card__title card__title--green">{{ __('home.card_products_title') }}</h2>
+          <p class="card__desc">{{ __('home.card_products_desc') }}</p>
+          <a href="{{ route('productos.index') }}" class="card__link card__link--green">{{ __('home.card_products_link') }}</a>
         </div>
 
         <div class="card__watermark" aria-hidden="true">
@@ -64,9 +60,9 @@
         </div>
 
         <div class="card__body">
-          <h2 class="card__title card__title--red">RESERVA</h2>
-          <p class="card__desc">Reserva la Casilla.</p>
-          <a href="{{ route('casilla.index') }}" class="card__link card__link--red">Reservar ahora →</a>
+          <h2 class="card__title card__title--red">{{ __('home.card_reserva_title') }}</h2>
+          <p class="card__desc">{{ __('home.card_reserva_desc') }}</p>
+          <a href="{{ route('casilla.index') }}" class="card__link card__link--red">{{ __('home.card_reserva_link') }}</a>
         </div>
 
         <div class="card__watermark" aria-hidden="true">
@@ -81,9 +77,9 @@
         </div>
 
         <div class="card__body">
-          <h2 class="card__title card__title--orange">BLOG</h2>
-          <p class="card__desc">Consejos, recetas y novedades del mundo agrícola.</p>
-          <a href="{{ route('blog.index') }}" class="card__link card__link--orange">Leer artículos →</a>
+          <h2 class="card__title card__title--orange">{{ __('home.card_blog_title') }}</h2>
+          <p class="card__desc">{{ __('home.card_blog_desc') }}</p>
+          <a href="{{ route('blog.index') }}" class="card__link card__link--orange">{{ __('home.card_blog_link') }}</a>
         </div>
 
         <div class="card__watermark" aria-hidden="true">
@@ -98,9 +94,9 @@
   <section class="certs">
     <div class="certs__heading-wrap">
       <img class="certs__leaf-icon" src="{{ asset('images/icon-leaf.png') }}" alt="" aria-hidden="true">
-      <h2 class="certs__title">CALIDAD CERTIFICADA,<br>CONFIANZA GARANTIZADA</h2>
+      <h2 class="certs__title">{!! __('home.certs_title') !!}</h2>
     </div>
-    <h3 class="certs__subtitle">Cumplimos con los más altos estándares de producción ecológica.</h3>
+    <h3 class="certs__subtitle">{{ __('home.certs_subtitle') }}</h3>
 
     <div class="certs__logos">
 

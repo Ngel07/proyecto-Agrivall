@@ -26,6 +26,12 @@ Route::get('/casilla', [CasillaController::class, 'index'])->name('casilla.index
 Route::get('/conocenos', fn() => view('conocenos.index'))->name('conocenos.index');
 Route::get('/contacto', fn() => view('contacto.index'))->name('contacto.index');
 
+Route::get('/locale/{lang}', function (string $lang) {
+    abort_if(!in_array($lang, ['es', 'val']), 404);
+    session(['locale' => $lang]);
+    return redirect()->back();
+})->name('locale.switch');
+
 Route::prefix('carrito')->name('carrito.')->group(function () {
     Route::get('/',                             [CarritoController::class, 'index'])->name('index');
     Route::post('/añadir/{producto}',           [CarritoController::class, 'añadir'])->name('añadir');

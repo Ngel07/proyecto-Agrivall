@@ -12,23 +12,23 @@
   {{-- ── FILTROS ──────────────────────────────────────────────── --}}
   <section class="prod-filters">
     @include('partials.breadcrumb', ['items' => [
-      ['label' => 'Inicio', 'url' => route('home')],
-      ['label' => 'Productos'],
+      ['label' => __('common.inicio'), 'url' => route('home')],
+      ['label' => __('productos.title')],
     ]])
     <div class="prod-header__text">
-      <h1 class="prod-header__title">PRODUCTOS</h1>
+      <h1 class="prod-header__title">{{ __('productos.title') }}</h1>
       <p class="prod-header__subtitle">
-        Frutas, frutos secos y hierbas comestibles ecológicas
+        {{ __('productos.subtitle') }}
       </p>
     <form class="prod-filters__form" method="GET" action="{{ route('productos.index') }}">
 
       <div class="prod-filters__selects">
 
         <div class="prod-filters__group">
-          <label for="f-categoria" class="sr-only">Categoría</label>
+          <label for="f-categoria" class="sr-only">{{ __('productos.filter_category') }}</label>
           <div class="prod-filters__select-wrap">
             <select id="f-categoria" name="categoria" class="prod-filters__select">
-              <option value="">Categoría</option>
+              <option value="">{{ __('productos.filter_category') }}</option>
               @foreach ($categorias as $cat)
                 <option value="{{ $cat }}" @selected(request('categoria') === $cat)>{{ $cat }}</option>
               @endforeach
@@ -38,10 +38,10 @@
         </div>
 
         <div class="prod-filters__group prod-filters__group--tipo">
-          <label for="f-tipo" class="sr-only">Tipo</label>
+          <label for="f-tipo" class="sr-only">{{ __('productos.filter_type') }}</label>
           <div class="prod-filters__select-wrap">
             <select id="f-tipo" name="tipo" class="prod-filters__select">
-              <option value="">Tipo</option>
+              <option value="">{{ __('productos.filter_type') }}</option>
               @foreach ($formatos as $fmt)
                 <option value="{{ $fmt }}" @selected(request('tipo') === $fmt)>{{ $fmt }}</option>
               @endforeach
@@ -54,9 +54,9 @@
           <label for="f-orden" class="sr-only">Ordenar por</label>
           <div class="prod-filters__select-wrap">
             <select id="f-orden" name="orden" class="prod-filters__select">
-              <option value="nombre"      @selected(request('orden', 'nombre') === 'nombre')>Ordenar por: Nombre</option>
-              <option value="precio_asc"  @selected(request('orden') === 'precio_asc')>Ordenar por: Precio ↑</option>
-              <option value="precio_desc" @selected(request('orden') === 'precio_desc')>Ordenar por: Precio ↓</option>
+              <option value="nombre"      @selected(request('orden', 'nombre') === 'nombre')>{{ __('productos.filter_order_name') }}</option>
+              <option value="precio_asc"  @selected(request('orden') === 'precio_asc')>{{ __('productos.filter_order_price_asc') }}</option>
+              <option value="precio_desc" @selected(request('orden') === 'precio_desc')>{{ __('productos.filter_order_price_desc') }}</option>
             </select>
             <i class="fa-solid fa-chevron-down prod-filters__arrow" aria-hidden="true"></i>
           </div>
@@ -66,7 +66,7 @@
 
       <button type="submit" class="prod-filters__btn">
         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <span>BUSCAR</span>
+        <span>{{ __('productos.search') }}</span>
       </button>
 
     </form>
@@ -76,7 +76,7 @@
   <section class="prod-section">
 
     @if ($productos->isEmpty())
-      <p class="prod-empty">No hay productos disponibles con estos filtros.</p>
+      <p class="prod-empty">{{ __('productos.empty') }}</p>
     @else
       <ul class="prod-grid" role="list">
         @foreach ($productos as $producto)
@@ -91,7 +91,7 @@
                   class="prod-card__img"
                   loading="lazy"
                 >
-                <span class="prod-card__badge">BIO</span>
+                <span class="prod-card__badge">{{ __('productos.badge_bio') }}</span>
               </div>
             </a>
 
@@ -115,7 +115,7 @@
                 @csrf
                 <button type="submit" class="prod-card__btn">
                   <i class="fa-solid fa-cart-plus" aria-hidden="true"></i>
-                  <span>Añadir al carrito</span>
+                  <span>{{ __('productos.add_to_cart') }}</span>
                 </button>
               </form>
             </div>

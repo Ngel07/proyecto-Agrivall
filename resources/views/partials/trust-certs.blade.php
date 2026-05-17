@@ -3,15 +3,15 @@
   <ul class="trust__list" role="list">
     <li class="trust__item">
       <i class="fa-solid fa-leaf trust__icon" aria-hidden="true"></i>
-      <span class="trust__label">100% Ecológico</span>
+      <span class="trust__label">{{ __('common.trust_eco') }}</span>
     </li>
     <li class="trust__item">
       <i class="fa-solid fa-tractor trust__icon" aria-hidden="true"></i>
-      <span class="trust__label">Directo del Campo</span>
+      <span class="trust__label">{{ __('common.trust_direct') }}</span>
     </li>
     <li class="trust__item">
       <i class="fa-regular fa-clock trust__icon" aria-hidden="true"></i>
-      <span class="trust__label">Envío en <strong>24h</strong></span>
+      <span class="trust__label">{!! __('common.trust_shipping') !!}</span>
     </li>
   </ul>
 </section>
@@ -21,10 +21,10 @@
 
   <div class="certs__heading-wrap">
     <img src="{{ asset('images/icon-leaf.png') }}" alt="" class="certs__leaf-icon" aria-hidden="true">
-    <h2 class="certs__title">Calidad certificada,<br>confianza garantizada</h2>
+    <h2 class="certs__title">{!! __('common.certs_title') !!}</h2>
   </div>
 
-  <p class="certs__subtitle">Todos nuestros productos cuentan con certificación oficial</p>
+  <p class="certs__subtitle">{{ __('common.certs_subtitle') }}</p>
 
   <div class="certs__logos">
     <div class="certs__logo-item">

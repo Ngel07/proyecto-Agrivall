@@ -68,23 +68,23 @@ $posts = [
   {{-- ── CABECERA ─────────────────────────────────────────────── --}}
   <section class="prod-filters">
     @include('partials.breadcrumb', ['items' => [
-      ['label' => 'Inicio', 'url' => route('home')],
-      ['label' => 'Blog'],
+      ['label' => __('common.inicio'), 'url' => route('home')],
+      ['label' => __('blog.title')],
     ]])
     <div class="prod-header__text">
-      <h1 class="prod-header__title">Blog</h1>
+      <h1 class="prod-header__title">{{ __('blog.title') }}</h1>
       <p class="prod-header__subtitle">
-        Noticias, consejos y curiosidades sobre agricultura ecológica
+        {{ __('blog.subtitle') }}
       </p>
     </div>
 
     <form class="prod-filters__form" method="GET" action="{{ route('blog.index') }}">
       <div class="prod-filters__selects">
         <div class="prod-filters__group">
-          <label for="f-categoria" class="sr-only">Categoría</label>
+          <label for="f-categoria" class="sr-only">{{ __('blog.filter_category') }}</label>
           <div class="prod-filters__select-wrap">
             <select id="f-categoria" name="categoria" class="prod-filters__select">
-              <option value="">Categoría</option>
+              <option value="">{{ __('blog.filter_category') }}</option>
               @foreach ($categorias as $cat)
                 <option value="{{ $cat }}">{{ $cat }}</option>
               @endforeach
@@ -96,7 +96,7 @@ $posts = [
 
       <button type="submit" class="prod-filters__btn">
         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <span>BUSCAR</span>
+        <span>{{ __('blog.search') }}</span>
       </button>
     </form>
   </section>
@@ -133,7 +133,7 @@ $posts = [
             <p class="blog-card__excerpt">{{ $post['extracto'] }}</p>
             <a href="{{ route('blog.show', 1) }}" class="blog-card__btn">
               <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              Leer más
+              {{ __('blog.read_more') }}
             </a>
           </div>
 

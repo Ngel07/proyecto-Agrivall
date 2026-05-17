@@ -13,13 +13,13 @@
   {{-- ── CABECERA (mismo estilo que productos) ─────────────── --}}
   <section class="prod-filters">
     @include('partials.breadcrumb', ['items' => [
-      ['label' => 'Inicio', 'url' => route('home')],
-      ['label' => 'Reserva la Casilla'],
+      ['label' => __('common.inicio'), 'url' => route('home')],
+      ['label' => __('casilla.title')],
     ]])
     <div class="prod-header__text">
-      <h1 class="prod-header__title">Reserva la Casilla</h1>
+      <h1 class="prod-header__title">{{ __('casilla.title') }}</h1>
       <p class="prod-header__subtitle">
-        Una casa rural en plena naturaleza, junto al río, rodeada de cultivos ecológicos.
+        {{ __('casilla.subtitle') }}
       </p>
     </div>
   </section>
@@ -68,18 +68,15 @@
         </div>
 
         <div class="casilla-desc">
-          <h3 class="casilla-desc__title">Sobre la casilla</h3>
+          <h3 class="casilla-desc__title">{{ __('casilla.about_title') }}</h3>
           <p class="casilla-desc__text">
-            Disfruta de una semana en nuestra casilla rural, ubicada en plena naturaleza junto al río.
-            Cuenta con cocina equipada, salón, tres habitaciones y acceso directo a los cultivos ecológicos
-            de Agrivall. Ideal para familias o grupos que quieran desconectar y vivir de cerca
-            la agricultura ecológica.
+            {{ __('casilla.about_text') }}
           </p>
           <ul class="casilla-desc__features">
-            <li><i class="fa-solid fa-bed" aria-hidden="true"></i> 3 habitaciones</li>
-            <li><i class="fa-solid fa-users" aria-hidden="true"></i> Hasta 8 personas</li>
-            <li><i class="fa-solid fa-water" aria-hidden="true"></i> Junto al río</li>
-            <li><i class="fa-solid fa-leaf" aria-hidden="true"></i> Entorno ecológico</li>
+            <li><i class="fa-solid fa-bed" aria-hidden="true"></i> {{ __('casilla.feat_rooms') }}</li>
+            <li><i class="fa-solid fa-users" aria-hidden="true"></i> {{ __('casilla.feat_people') }}</li>
+            <li><i class="fa-solid fa-water" aria-hidden="true"></i> {{ __('casilla.feat_river') }}</li>
+            <li><i class="fa-solid fa-leaf" aria-hidden="true"></i> {{ __('casilla.feat_eco') }}</li>
           </ul>
         </div>
 
@@ -90,7 +87,7 @@
 
         <div class="casilla-price-tag">
           <span class="casilla-price-tag__amount">150&euro;</span>
-          <span class="casilla-price-tag__label">/ semana · IVA incluido</span>
+          <span class="casilla-price-tag__label">{{ __('casilla.price_label') }}</span>
         </div>
 
         <div class="casilla-cal" id="casilla-cal">
@@ -113,62 +110,62 @@
           <div class="casilla-cal__legend">
             <div class="casilla-cal__legend-item">
               <span class="casilla-cal__legend-dot casilla-cal__legend-dot--available"></span>
-              Disponible
+              {{ __('casilla.cal_available') }}
             </div>
             <div class="casilla-cal__legend-item">
               <span class="casilla-cal__legend-dot casilla-cal__legend-dot--unavailable"></span>
-              No disponible
+              {{ __('casilla.cal_unavailable') }}
             </div>
             <div class="casilla-cal__legend-item">
               <span class="casilla-cal__legend-dot casilla-cal__legend-dot--selected"></span>
-              Seleccionado
+              {{ __('casilla.cal_selected') }}
             </div>
           </div>
         </div>
 
         <form class="casilla-form" id="casilla-form" novalidate>
           @csrf
-          <h2 class="casilla-form__title">Tus datos de contacto</h2>
+          <h2 class="casilla-form__title">{{ __('casilla.form_title') }}</h2>
 
           <div class="casilla-form__row">
             <div class="casilla-form__group">
-              <label class="casilla-form__label" for="f-nombre">Nombre completo</label>
-              <input class="casilla-form__input" type="text" id="f-nombre" name="nombre" placeholder="Juan García" required>
+              <label class="casilla-form__label" for="f-nombre">{{ __('casilla.form_name') }}</label>
+              <input class="casilla-form__input" type="text" id="f-nombre" name="nombre" placeholder="{{ __('casilla.form_name_placeholder') }}" required>
             </div>
             <div class="casilla-form__group">
-              <label class="casilla-form__label" for="f-email">Correo electrónico</label>
-              <input class="casilla-form__input" type="email" id="f-email" name="email" placeholder="juan@email.com" required>
+              <label class="casilla-form__label" for="f-email">{{ __('casilla.form_email') }}</label>
+              <input class="casilla-form__input" type="email" id="f-email" name="email" placeholder="{{ __('casilla.form_email_placeholder') }}" required>
             </div>
           </div>
 
           <div class="casilla-form__row">
             <div class="casilla-form__group">
-              <label class="casilla-form__label" for="f-tlf">Teléfono</label>
+              <label class="casilla-form__label" for="f-tlf">{{ __('casilla.form_phone') }}</label>
               <input class="casilla-form__input" type="tel" id="f-tlf" name="telefono" placeholder="600 000 000">
             </div>
             <div class="casilla-form__group">
-              <label class="casilla-form__label" for="f-personas">Número de personas</label>
+              <label class="casilla-form__label" for="f-personas">{{ __('casilla.form_people') }}</label>
               <input class="casilla-form__input" type="number" id="f-personas" name="personas" placeholder="2" min="1" max="10">
             </div>
           </div>
 
           <div class="casilla-form__group">
-            <label class="casilla-form__label">Fechas seleccionadas</label>
+            <label class="casilla-form__label">{{ __('casilla.form_dates') }}</label>
             <div class="casilla-form__dates-display is-empty" id="dates-display">
-              Selecciona las fechas en el calendario
+              {{ __('casilla.form_dates_placeholder') }}
             </div>
             <input type="hidden" name="fecha_inicio" id="f-fecha-inicio">
             <input type="hidden" name="fecha_fin" id="f-fecha-fin">
           </div>
 
           <div class="casilla-form__group">
-            <label class="casilla-form__label" for="f-mensaje">Mensaje (opcional)</label>
-            <textarea class="casilla-form__input" id="f-mensaje" name="mensaje" rows="3" placeholder="¿Alguna petición especial?"></textarea>
+              <label class="casilla-form__label" for="f-mensaje">{{ __('casilla.form_message') }}</label>
+              <textarea class="casilla-form__input" id="f-mensaje" name="mensaje" rows="3" placeholder="{{ __('casilla.form_message_placeholder') }}"></textarea>
           </div>
 
           <button type="submit" class="casilla-form__btn">
             <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-            Enviar solicitud de reserva
+            {{ __('casilla.form_submit') }}
           </button>
         </form>
 

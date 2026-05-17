@@ -13,13 +13,13 @@
   {{-- ── CABECERA ─────────────────────────────────────────────── --}}
   <section class="prod-filters">
     @include('partials.breadcrumb', ['items' => [
-      ['label' => 'Inicio', 'url' => route('home')],
-      ['label' => 'Contacto'],
+      ['label' => __('common.inicio'), 'url' => route('home')],
+      ['label' => __('contacto.title')],
     ]])
     <div class="prod-header__text">
-      <h1 class="prod-header__title">Contacto</h1>
+      <h1 class="prod-header__title">{{ __('contacto.title') }}</h1>
       <p class="prod-header__subtitle">
-        Escríbenos y te responderemos lo antes posible
+        {{ __('contacto.subtitle') }}
       </p>
     </div>
   </section>
@@ -32,8 +32,7 @@
         <i class="fa-solid fa-seedling"></i>
       </div>
       <p class="contacto-intro__text">
-        ¿Tienes dudas sobre nuestros productos, quieres hacer un pedido especial
-        o necesitas información sobre la casilla rural? Estaremos encantados de ayudarte.
+        {{ __('contacto.intro') }}
       </p>
     </div>
 
@@ -42,39 +41,39 @@
         @csrf
 
         <div class="contacto-field">
-          <label for="nombre">Nombre</label>
+          <label for="nombre">{{ __('contacto.name') }}</label>
           <input
             type="text"
             id="nombre"
             name="nombre"
-            placeholder="Tu nombre"
+            placeholder="{{ __('contacto.name_ph') }}"
             autocomplete="name"
           >
         </div>
 
         <div class="contacto-field">
-          <label for="email">Correo electrónico</label>
+          <label for="email">{{ __('contacto.email') }}</label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="tucorreo@ejemplo.com"
+            placeholder="{{ __('contacto.email_ph') }}"
             autocomplete="email"
           >
         </div>
 
         <div class="contacto-field">
-          <label for="mensaje">Mensaje</label>
+          <label for="mensaje">{{ __('contacto.message') }}</label>
           <textarea
             id="mensaje"
             name="mensaje"
-            placeholder="Escribe aquí tu consulta..."
+            placeholder="{{ __('contacto.message_ph') }}"
           ></textarea>
         </div>
 
         <button type="button" class="contacto-btn">
           <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-          Enviar mensaje
+          {{ __('contacto.send') }}
         </button>
 
       </form>
@@ -84,11 +83,11 @@
     <div class="contacto-map" aria-label="Ubicación de Agrivall">
       <div class="contacto-map__placeholder">
         <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
-        <p>Ubicación de Agrivall</p>
+        <p>{{ __('contacto.map_title') }}</p>
       </div>
-      <div class="contacto-map__caption">
+        <div class="contacto-map__caption">
         <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-        Valle del Jerte, Cáceres, Extremadura
+        {{ __('contacto.map_caption') }}
       </div>
     </div>
 
