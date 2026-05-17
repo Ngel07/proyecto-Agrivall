@@ -23,6 +23,7 @@ Route::get('/productos/{producto}', [PublicController::class, 'show'])->name('pr
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/casilla', [CasillaController::class, 'index'])->name('casilla.index');
+Route::get('/conocenos', fn() => view('conocenos.index'))->name('conocenos.index');
 Route::get('/contacto', fn() => view('contacto.index'))->name('contacto.index');
 
 Route::prefix('carrito')->name('carrito.')->group(function () {

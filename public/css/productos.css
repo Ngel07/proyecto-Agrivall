@@ -9,7 +9,7 @@
 }
 
 .prod-header__title {
-  font-size: clamp(28px, 8vw, 48px);
+  font-size: clamp(14px, 4vw, 24px);
   font-weight: 900;
   color:var(--green-medium);
   text-transform: uppercase;

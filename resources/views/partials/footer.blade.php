@@ -20,6 +20,18 @@
           <i class="fa-solid fa-envelope" aria-hidden="true"></i>
           Escríbenos
         </a>
+
+        <div class="site-footer__social" aria-label="Redes sociales">
+          <a href="https://www.instagram.com/agrivall" class="site-footer__social-btn" aria-label="Instagram de Agrivall" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/javier-savall-agrivall" class="site-footer__social-btn" aria-label="LinkedIn de Agrivall" target="_blank" rel="noopener">
+            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+          </a>
+          <a href="https://wa.me/34679765842" class="site-footer__social-btn" aria-label="WhatsApp de Agrivall" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          </a>
+        </div>
       </div>
 
       {{-- Col 2: Mapa del sitio --}}

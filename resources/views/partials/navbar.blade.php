@@ -8,7 +8,7 @@
     <a href="{{ route('productos.index') }}" class="navbar__link">Productos</a>
     <a href="{{ route('casilla.index') }}" class="navbar__link">Reserva</a>
     <a href="{{ route('blog.index') }}" class="navbar__link">Blog</a>
-    <a href="#conocenos" class="navbar__link">Conócenos</a>
+    <a href="{{ route('conocenos.index') }}" class="navbar__link">Conócenos</a>
     <a href="{{ route('contacto.index') }}" class="navbar__link">Contacto</a>
 
     {{-- Login / Admin visible solo en mobile --}}
