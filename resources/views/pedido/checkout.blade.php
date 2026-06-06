@@ -289,7 +289,7 @@
 @push('scripts')
 <script>
 (function () {
-  const form = document.querySelector('form[action="{{ route('pedido.confirmar') }}"]');
+  const form = document.querySelector('form[action="{{ route("pedido.confirmar") }}"]');
   if (!form) return;
 
   const rules = [

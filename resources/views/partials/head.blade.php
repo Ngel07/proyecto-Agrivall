@@ -3,6 +3,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <meta name="description" content="@yield('description', 'Agrivall — Productos ecológicos certificados del Valle de Gallinera. Cerezas, albaricoques, nueces y hierbas directas del productor.')" />
 <link rel="canonical" href="{{ url()->current() }}" />
+<link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 {{-- Open Graph --}}
 <meta property="og:type"        content="website" />
 <meta property="og:site_name"   content="Agrivall" />
