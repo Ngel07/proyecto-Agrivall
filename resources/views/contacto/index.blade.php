@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Contacto — Agrivall')
+@section('description', 'Contacta con Agrivall para pedidos especiales, consultas sobre productos ecológicos o información sobre la casilla rural en el Valle de Gallinera.')
 @section('body-class', 'page-contacto')
 
 @push('styles')

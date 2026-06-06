@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('description', 'Reserva la casilla rural de Agrivall en el Valle de Gallinera. Una escapada única en plena naturaleza ecológica certificada.')
 @section('title', 'Reserva la Casilla — Agrivall')
 @section('body-class', 'page-casilla')
 

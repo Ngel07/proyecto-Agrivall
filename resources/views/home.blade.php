@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Agrivall — Naturaleza certificada, sabor inigualable')
+@section('description', 'Agrivall ofrece productos ecológicos certificados del Valle de Gallinera: cerezas, albaricoques, nueces y hierbas aromáticas. Directas del productor a tu mesa.')
 
 @section('content')
 

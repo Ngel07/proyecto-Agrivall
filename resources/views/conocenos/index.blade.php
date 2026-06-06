@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('description', 'Conoce la historia de Agrivall: agricultura ecológica certificada en el Valle de Gallinera. Más de 20 años cultivando con respeto por la tierra y el entorno.')
 @section('title', 'Conócenos — Agrivall')
 @section('body-class', 'page-conocenos')
 

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('description', 'Compra online productos ecológicos certificados de Agrivall: cerezas, albaricoques, nueces y hierbas en formato 1 kg y 4 kg. Envío directo del campo.')
 @section('title', 'Productos — Agrivall')
 @section('body-class', 'page-productos')
 

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Blog — Agrivall')
+@section('description', 'Artículos, recetas y consejos sobre agricultura ecológica, temporadas de fruta y vida rural en el Valle de Gallinera.')
 @section('body-class', 'page-blog')
 
 @push('styles')

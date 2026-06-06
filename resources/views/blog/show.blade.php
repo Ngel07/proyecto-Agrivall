@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $post->titulo . ' — Blog Agrivall')
+@section('description', \Illuminate\Support\Str::limit(strip_tags($post->noticia), 155))
 @section('body-class', 'page-blog')
 
 @push('styles')
