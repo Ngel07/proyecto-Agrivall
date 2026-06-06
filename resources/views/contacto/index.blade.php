@@ -79,13 +79,20 @@
       </form>
     </div>
 
-    {{-- ── MAPA PLACEHOLDER ────────────────────────────────────── --}}
+    {{-- ── MAPA GOOGLE MAPS ─────────────────────────────────────── --}}
     <div class="contacto-map" aria-label="Ubicación de Agrivall">
-      <div class="contacto-map__placeholder">
-        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
-        <p>{{ __('contacto.map_title') }}</p>
-      </div>
-        <div class="contacto-map__caption">
+      <iframe
+        class="contacto-map__iframe"
+        src="https://www.google.com/maps?q=CV-700+Km+36+Alpatr%C3%B3+La+Vall+de+Gallinera+Alacant&output=embed"
+        width="100%"
+        height="350"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="{{ __('contacto.map_title') }}"
+      ></iframe>
+      <div class="contacto-map__caption">
         <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
         {{ __('contacto.map_caption') }}
       </div>

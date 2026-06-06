@@ -1,4 +1,5 @@
 {{-- ── TRUST BADGES ─────────────────────────────────────────── --}}
+@unless($hideTrust ?? false)
 <section class="trust" aria-label="Garantías">
   <ul class="trust__list" role="list">
     <li class="trust__item">
@@ -15,6 +16,7 @@
     </li>
   </ul>
 </section>
+@endunless
 
 {{-- ── CERTIFICACIONES ─────────────────────────────────────── --}}
 <section class="certs" aria-label="Certificaciones">
@@ -27,24 +29,24 @@
   <p class="certs__subtitle">{{ __('common.certs_subtitle') }}</p>
 
   <div class="certs__logos">
-    <div class="certs__logo-item">
+    <a href="{{ route('conocenos.index') }}#certificaciones" class="certs__logo-item" aria-label="Más información sobre nuestra certificación ecológica">
       <div class="certs__logo-box">
         <img src="{{ asset('images/logo-caae.jpg') }}" alt="CAAE — Producción Ecológica">
       </div>
       <span class="certs__label">Producción<br>Ecológica</span>
-    </div>
-    <div class="certs__logo-item">
+    </a>
+    <a href="{{ route('conocenos.index') }}#certificaciones" class="certs__logo-item" aria-label="Más información sobre nuestra certificación ES-ECO-001-CT">
       <div class="certs__logo-box">
         <img src="{{ asset('images/logo-eu-eco.png') }}" alt="ES-ECO-001-CT Agricultura UE">
       </div>
       <span class="certs__label">ES-ECO-001-CT<br>Agricultura UE</span>
-    </div>
-    <div class="certs__logo-item">
+    </a>
+    <a href="{{ route('conocenos.index') }}#certificaciones" class="certs__logo-item" aria-label="Más información sobre Certirceo For Intereco">
       <div class="certs__logo-box">
         <img src="{{ asset('images/logo-intereco.jpg') }}" alt="Certirceo For Intereco">
       </div>
       <span class="certs__label">Certirceo<br>For Intereco</span>
-    </div>
+    </a>
   </div>
 
   <div class="certs__leaves" aria-hidden="true">

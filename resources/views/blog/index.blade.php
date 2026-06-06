@@ -10,61 +10,6 @@
 
 @section('content')
 
-@php
-$categorias = ['Noticias', 'Consejos', 'Recetas'];
-
-$posts = [
-  [
-    'titulo'   => 'Temporada de cerezas: todo lo que necesitas saber',
-    'extracto' => 'Las cerezas ecológicas de Agrivall maduran bajo el sol de primavera y llegan directas del árbol a tu mesa. Descubre cuándo es el mejor momento para comprarlas, cómo conservarlas y por qué son tan especiales las variedades que cultivamos.',
-    'fecha'    => '2 may. 2026',
-    'tipo'     => 'Noticias',
-    'imagen'   => 'bg-frutas.png',
-    'featured' => true,
-  ],
-  [
-    'titulo'   => 'Los beneficios de la agricultura ecológica para tu salud',
-    'extracto' => 'Cada vez más estudios confirman que los productos cultivados sin pesticidas aportan más nutrientes y menos residuos químicos. Te explicamos qué dice la ciencia.',
-    'fecha'    => '18 abr. 2026',
-    'tipo'     => 'Noticias',
-    'imagen'   => 'bg-productos.png',
-    'featured' => false,
-  ],
-  [
-    'titulo'   => 'Cómo conservar las nueces durante todo el invierno',
-    'extracto' => 'La nuez ecológica es uno de los frutos secos más saludables, pero requiere ciertas condiciones de almacenamiento para no perder sus propiedades. Sigue estos consejos.',
-    'fecha'    => '5 abr. 2026',
-    'tipo'     => 'Consejos',
-    'imagen'   => 'bg-frutas.png',
-    'featured' => false,
-  ],
-  [
-    'titulo'   => '5 recetas fáciles con albaricoques de temporada',
-    'extracto' => 'El albaricoque ecológico es versátil en la cocina: mermeladas, tartas, salsas y ensaladas. Te proponemos cinco recetas sencillas para aprovechar la temporada.',
-    'fecha'    => '22 mar. 2026',
-    'tipo'     => 'Recetas',
-    'imagen'   => 'bg-productos.png',
-    'featured' => false,
-  ],
-  [
-    'titulo'   => 'Qué significa el sello CAAE y por qué importa',
-    'extracto' => 'La certificación ecológica no es un simple logotipo: implica años de trabajo, controles rigurosos y un compromiso con el medio ambiente. Te explicamos el proceso.',
-    'fecha'    => '10 mar. 2026',
-    'tipo'     => 'Noticias',
-    'imagen'   => 'bg-frutas.png',
-    'featured' => false,
-  ],
-  [
-    'titulo'   => 'Hierbas aromáticas ecológicas: propiedades y usos en cocina',
-    'extracto' => 'Tomillo, romero, orégano… las hierbas aromáticas que crecen en nuestros campos tienen usos medicinales y culinarios sorprendentes. Aprende a sacarles el máximo partido.',
-    'fecha'    => '28 feb. 2026',
-    'tipo'     => 'Consejos',
-    'imagen'   => 'bg-productos.png',
-    'featured' => false,
-  ],
-];
-@endphp
-
   {{-- ── CABECERA ─────────────────────────────────────────────── --}}
   <section class="prod-filters">
     @include('partials.breadcrumb', ['items' => [
@@ -85,8 +30,10 @@ $posts = [
           <div class="prod-filters__select-wrap">
             <select id="f-categoria" name="categoria" class="prod-filters__select">
               <option value="">{{ __('blog.filter_category') }}</option>
-              @foreach ($categorias as $cat)
-                <option value="{{ $cat }}">{{ $cat }}</option>
+              @foreach ($tipos as $tipo)
+                <option value="{{ $tipo->tipo }}" {{ request('categoria') === $tipo->tipo ? 'selected' : '' }}>
+                  {{ $tipo->tipo }}
+                </option>
               @endforeach
             </select>
             <i class="fa-solid fa-chevron-down prod-filters__arrow" aria-hidden="true"></i>
@@ -106,18 +53,18 @@ $posts = [
     <ul class="blog-grid" role="list">
 
       @foreach ($posts as $post)
-        <li class="blog-card {{ $post['featured'] ? 'blog-card--featured' : '' }}">
+        <li class="blog-card {{ $loop->first ? 'blog-card--featured' : '' }}">
 
           {{-- Imagen --}}
-          <a href="{{ route('blog.show', 1) }}" class="blog-card__img-link" tabindex="-1" aria-hidden="true">
+          <a href="{{ route('blog.show', $post) }}" class="blog-card__img-link" tabindex="-1" aria-hidden="true">
             <div class="blog-card__img-wrap">
               <img
-                src="{{ asset('images/' . $post['imagen']) }}"
-                alt="{{ $post['titulo'] }}"
+                src="{{ asset('images/' . ($post->imagen ?? 'bg-frutas.png')) }}"
+                alt="{{ $post->titulo }}"
                 class="blog-card__img"
                 loading="lazy"
               >
-              <span class="blog-card__badge">{{ $post['tipo'] }}</span>
+              <span class="blog-card__badge">{{ $post->tipo->tipo }}</span>
             </div>
           </a>
 
@@ -125,13 +72,13 @@ $posts = [
           <div class="blog-card__body">
             <span class="blog-card__date">
               <i class="fa-regular fa-calendar" aria-hidden="true"></i>
-              {{ $post['fecha'] }}
+              {{ $post->fecha_public->format('d/m/Y') }}
             </span>
-            <a href="{{ route('blog.show', 1) }}" class="blog-card__title">
-              {{ $post['titulo'] }}
+            <a href="{{ route('blog.show', $post) }}" class="blog-card__title">
+              {{ $post->titulo }}
             </a>
-            <p class="blog-card__excerpt">{{ $post['extracto'] }}</p>
-            <a href="{{ route('blog.show', 1) }}" class="blog-card__btn">
+            <p class="blog-card__excerpt">{{ \Illuminate\Support\Str::limit(strip_tags($post->noticia), 180) }}</p>
+            <a href="{{ route('blog.show', $post) }}" class="blog-card__btn">
               <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
               {{ __('blog.read_more') }}
             </a>

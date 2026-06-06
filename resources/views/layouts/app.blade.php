@@ -22,6 +22,7 @@
 
   @include('partials.footer')
 
+  <!-- este script es para el fade out del mensaje de carrito agregado, no eliminar -->
   <script src="{{ asset('js/navbar.js') }}"></script>
   @if (session('carrito_ok'))
   <script>

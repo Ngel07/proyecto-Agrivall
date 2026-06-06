@@ -48,7 +48,7 @@
   </section>
 
   {{-- ── CERTIFICACIÓN ─────────────────────────────────────────── --}}
-  <section class="conocenos-section conocenos-section--alt">
+  <section id="certificaciones" class="conocenos-section conocenos-section--alt">
     <div class="conocenos-inner">
 
       <h2 class="conocenos-section__title">

@@ -625,6 +625,12 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+.certs__logo-item:hover {
+  opacity: 0.8;
 }
 
 .certs__logo-box {

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'hero_title'    => "NATURALESA\nCERTIFICADA,\nSABOR\nINIGUALABLE",
+    'hero_title'    => "NATURALESA\n<span class=\"hero__heading--accent\">CERTIFICADA,</span>\nSABOR\nINIGUALABLE",
     'hero_subtitle' => 'Fruites seleccionades amb la màxima cura,<br>directe del camp a la teua taula en <strong class="hero__gold">24h</strong>.',
     'hero_cta'      => 'VEURE PRODUCTES',
     'hero_discover' => 'Descobrix més',
@@ -11,7 +11,7 @@ return [
     'card_products_link'  => 'Veure catàleg →',
 
     'card_reserva_title'  => 'RESERVA',
-    'card_reserva_desc'   => "Una escapada rural entre fruiters ecològics. Desconnecta en plena natura.",
+    'card_reserva_desc'   => "Reserva la casella rural. Escapada en la naturalesa.",
     'card_reserva_link'   => 'Reservar ara →',
 
     'card_blog_title'     => 'BLOG',

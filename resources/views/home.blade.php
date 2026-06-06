@@ -13,7 +13,7 @@
       </div>
 
       <h1 class="hero__heading">
-        {!! nl2br(e(__('home.hero_title'))) !!}
+        {!! nl2br(__('home.hero_title')) !!}
       </h1>
 
       <p class="hero__subtitle">
@@ -90,47 +90,6 @@
     </div>
   </section>
 
-  {{-- CERTIFICATIONS --}}
-  <section class="certs">
-    <div class="certs__heading-wrap">
-      <img class="certs__leaf-icon" src="{{ asset('images/icon-leaf.png') }}" alt="" aria-hidden="true">
-      <h2 class="certs__title">{!! __('home.certs_title') !!}</h2>
-    </div>
-    <h3 class="certs__subtitle">{{ __('home.certs_subtitle') }}</h3>
-
-    <div class="certs__logos">
-
-      {{-- CAAE --}}
-      <div class="certs__logo-item">
-        <div class="certs__logo-box">
-          <img src="{{ asset('images/logo-caae.jpg') }}" alt="Logo CAAE">
-        </div>
-        <span class="certs__label">PRODUCCIÓN<br>ECOLÓGICA</span>
-      </div>
-
-      {{-- EU Eco --}}
-      <div class="certs__logo-item">
-        <div class="certs__logo-box">
-          <img src="{{ asset('images/logo-eu-eco.png') }}" alt="Logo EU Agricultura Ecológica">
-        </div>
-        <span class="certs__label">ES-ECO-001-CT<br>AGRICULTURA UE</span>
-      </div>
-
-      {{-- INTERECO --}}
-      <div class="certs__logo-item">
-        <div class="certs__logo-box">
-          <img src="{{ asset('images/logo-intereco.jpg') }}" alt="Logo INTERECO">
-        </div>
-        <span class="certs__label">CERTIFICADO<br>POR INTERECO</span>
-      </div>
-
-    </div>
-
-    {{-- Decorative leaves bottom --}}
-    <div class="certs__leaves" aria-hidden="true">
-      <img class="certs__leaves-left" src="{{ asset('images/deco-leaves-left.png') }}" alt="">
-      <img class="certs__leaves-right" src="{{ asset('images/deco-leaves-right.png') }}" alt="">
-    </div>
-  </section>
+  @include('partials.trust-certs', ['hideTrust' => true])
 
 @endsection
