@@ -25,3 +25,4 @@ jobs:
               sleep 2
             done
             ./vendor/bin/sail artisan migrate --force
+            ./vendor/bin/sail artisan db:seed --force
