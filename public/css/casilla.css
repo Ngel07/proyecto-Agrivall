@@ -410,6 +410,49 @@
   transform: translateY(-1px);
 }
 
+.casilla-form__input:invalid:not(:placeholder-shown) {
+  border-color: #e53e3e;
+}
+.casilla-form__error {
+  display: none;
+  font-size: 11px;
+  color: #c53030;
+  font-weight: 600;
+  margin-top: 3px;
+}
+.casilla-form__group.has-error .casilla-form__input {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229,62,62,0.12);
+}
+.casilla-form__group.has-error .casilla-form__error {
+  display: block;
+}
+
+/* Mensaje de éxito reserva */
+.casilla-reserva-ok {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 48px 24px;
+  text-align: center;
+  background: var(--green-card-bg);
+  border-radius: var(--radius-card);
+  border: 1.5px solid #c2dfa0;
+}
+.casilla-reserva-ok__icon {
+  font-size: 3rem;
+  color: var(--green-medium);
+}
+.casilla-reserva-ok__text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
 /* ══════════════════════════════════════
    RESPONSIVE
    ══════════════════════════════════════ */

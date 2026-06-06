@@ -162,6 +162,26 @@
 
 .checkout-field input::placeholder { color: #b0bfaa; }
 
+.checkout-field input:invalid:not(:placeholder-shown),
+.checkout-field select:invalid:not(:placeholder-shown) {
+  border-color: #e53e3e;
+}
+.checkout-field__error {
+  display: none;
+  font-size: 11px;
+  color: #c53030;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.checkout-field.has-error input,
+.checkout-field.has-error select {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229,62,62,0.12);
+}
+.checkout-field.has-error .checkout-field__error {
+  display: block;
+}
+
 /* ── MÉTODOS DE PAGO ────────────────────────────────────────────── */
 .checkout-payment-options {
   display: flex;

@@ -76,29 +76,34 @@
 
             <div class="checkout-grid checkout-grid--2">
 
-              <div class="checkout-field">
+              <div class="checkout-field @error('nombre') has-error @enderror">
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" value="{{ old('nombre') }}" placeholder="Juan" autocomplete="given-name">
+                <input type="text" id="nombre" name="nombre" value="{{ old('nombre') }}" placeholder="Juan" autocomplete="given-name" required minlength="2">
+                <span class="checkout-field__error" data-msg-required="El nombre es obligatorio" data-msg-minlength="Mínimo 2 caracteres">@error('nombre'){{ $message }}@enderror</span>
               </div>
 
-              <div class="checkout-field">
+              <div class="checkout-field @error('apellidos') has-error @enderror">
                 <label for="apellidos">Apellidos</label>
-                <input type="text" id="apellidos" name="apellidos" value="{{ old('apellidos') }}" placeholder="García López" autocomplete="family-name">
+                <input type="text" id="apellidos" name="apellidos" value="{{ old('apellidos') }}" placeholder="García López" autocomplete="family-name" required minlength="2">
+                <span class="checkout-field__error" data-msg-required="Los apellidos son obligatorios" data-msg-minlength="Mínimo 2 caracteres">@error('apellidos'){{ $message }}@enderror</span>
               </div>
 
-              <div class="checkout-field checkout-grid--col-span-2">
+              <div class="checkout-field checkout-grid--col-span-2 @error('direccion') has-error @enderror">
                 <label for="direccion">Dirección</label>
-                <input type="text" id="direccion" name="direccion" value="{{ old('direccion') }}" placeholder="Calle Mayor, 14, 2ºA" autocomplete="street-address">
+                <input type="text" id="direccion" name="direccion" value="{{ old('direccion') }}" placeholder="Calle Mayor, 14, 2ºA" autocomplete="street-address" required minlength="5">
+                <span class="checkout-field__error" data-msg-required="La dirección es obligatoria" data-msg-minlength="Introduce una dirección completa">@error('direccion'){{ $message }}@enderror</span>
               </div>
 
-              <div class="checkout-field">
+              <div class="checkout-field @error('cp') has-error @enderror">
                 <label for="cp">Código postal</label>
-                <input type="text" id="cp" name="cp" value="{{ old('cp') }}" placeholder="28001" autocomplete="postal-code" maxlength="5">
+                <input type="text" id="cp" name="cp" value="{{ old('cp') }}" placeholder="28001" autocomplete="postal-code" maxlength="5" minlength="5" pattern="[0-9]{5}" required>
+                <span class="checkout-field__error" data-msg-required="El código postal es obligatorio" data-msg-pattern="Debe tener 5 dígitos">@error('cp'){{ $message }}@enderror</span>
               </div>
 
-              <div class="checkout-field">
+              <div class="checkout-field @error('localidad') has-error @enderror">
                 <label for="localidad">Localidad</label>
-                <input type="text" id="localidad" name="localidad" value="{{ old('localidad') }}" placeholder="Madrid" autocomplete="address-level2">
+                <input type="text" id="localidad" name="localidad" value="{{ old('localidad') }}" placeholder="Madrid" autocomplete="address-level2" required minlength="2">
+                <span class="checkout-field__error" data-msg-required="La localidad es obligatoria">@error('localidad'){{ $message }}@enderror</span>
               </div>
 
               <div class="checkout-field">
@@ -158,14 +163,16 @@
                 </select>
               </div>
 
-              <div class="checkout-field">
+              <div class="checkout-field @error('telefono') has-error @enderror">
                 <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" value="{{ old('telefono') }}" placeholder="612 345 678" autocomplete="tel">
+                <input type="tel" id="telefono" name="telefono" value="{{ old('telefono') }}" placeholder="612 345 678" autocomplete="tel" required pattern="[0-9 +]{9,15}" minlength="9">
+                <span class="checkout-field__error" data-msg-required="El teléfono es obligatorio" data-msg-pattern="Mínimo 9 dígitos">@error('telefono'){{ $message }}@enderror</span>
               </div>
 
-              <div class="checkout-field checkout-grid--col-span-2">
+              <div class="checkout-field checkout-grid--col-span-2 @error('email') has-error @enderror">
                 <label for="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="juan@ejemplo.com" autocomplete="email">
+                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="juan@ejemplo.com" autocomplete="email" required>
+                <span class="checkout-field__error" data-msg-required="El correo electrónico es obligatorio" data-msg-email="Introduce un correo válido">@error('email'){{ $message }}@enderror</span>
               </div>
 
               <div class="checkout-field checkout-grid--col-span-2">
@@ -278,3 +285,63 @@
   @include('partials.trust-certs')
 
 @endsection
+
+@push('scripts')
+<script>
+(function () {
+  const form = document.querySelector('form[action="{{ route('pedido.confirmar') }}"]');
+  if (!form) return;
+
+  const rules = [
+    { id: 'nombre',    required: 'El nombre es obligatorio',               minlength: 'Mínimo 2 caracteres' },
+    { id: 'apellidos', required: 'Los apellidos son obligatorios',          minlength: 'Mínimo 2 caracteres' },
+    { id: 'direccion', required: 'La dirección es obligatoria',            minlength: 'Introduce una dirección completa' },
+    { id: 'cp',        required: 'El código postal es obligatorio',         pattern:   'Debe tener 5 dígitos numéricos' },
+    { id: 'localidad', required: 'La localidad es obligatoria' },
+    { id: 'telefono',  required: 'El teléfono es obligatorio',             pattern:   'Mínimo 9 dígitos' },
+    { id: 'email',     required: 'El correo electrónico es obligatorio',   typeMismatch: 'Introduce un correo válido' },
+  ];
+
+  form.addEventListener('submit', function (e) {
+    let firstError = null;
+    rules.forEach(rule => {
+      const input = document.getElementById(rule.id);
+      if (!input) return;
+      const field = input.closest('.checkout-field');
+      const span  = field ? field.querySelector('.checkout-field__error') : null;
+      const v = input.validity;
+      let msg = '';
+
+      if (v.valueMissing)  msg = rule.required    || 'Campo obligatorio';
+      else if (v.tooShort) msg = rule.minlength   || 'Demasiado corto';
+      else if (v.patternMismatch || v.typeMismatch) msg = rule.pattern || rule.typeMismatch || 'Formato incorrecto';
+
+      if (msg) {
+        e.preventDefault();
+        if (field) field.classList.add('has-error');
+        if (span)  { span.textContent = msg; span.style.display = 'block'; }
+        if (!firstError) firstError = input;
+      } else {
+        if (field) field.classList.remove('has-error');
+        if (span)  { span.textContent = ''; span.style.display = 'none'; }
+      }
+    });
+    if (firstError) firstError.focus();
+  });
+
+  // Limpiar error al corregir
+  rules.forEach(rule => {
+    const input = document.getElementById(rule.id);
+    if (!input) return;
+    input.addEventListener('input', function () {
+      const field = this.closest('.checkout-field');
+      const span  = field ? field.querySelector('.checkout-field__error') : null;
+      if (this.validity.valid) {
+        if (field) field.classList.remove('has-error');
+        if (span)  { span.textContent = ''; span.style.display = 'none'; }
+      }
+    });
+  });
+})();
+</script>
+@endpush

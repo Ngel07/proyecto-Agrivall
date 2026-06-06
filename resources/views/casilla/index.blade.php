@@ -131,22 +131,26 @@
           <div class="casilla-form__row">
             <div class="casilla-form__group">
               <label class="casilla-form__label" for="f-nombre">{{ __('casilla.form_name') }}</label>
-              <input class="casilla-form__input" type="text" id="f-nombre" name="nombre" placeholder="{{ __('casilla.form_name_placeholder') }}" required>
+              <input class="casilla-form__input" type="text" id="f-nombre" name="nombre" placeholder="{{ __('casilla.form_name_placeholder') }}" required minlength="2">
+              <span class="casilla-form__error" id="err-nombre"></span>
             </div>
             <div class="casilla-form__group">
               <label class="casilla-form__label" for="f-email">{{ __('casilla.form_email') }}</label>
               <input class="casilla-form__input" type="email" id="f-email" name="email" placeholder="{{ __('casilla.form_email_placeholder') }}" required>
+              <span class="casilla-form__error" id="err-email"></span>
             </div>
           </div>
 
           <div class="casilla-form__row">
             <div class="casilla-form__group">
               <label class="casilla-form__label" for="f-tlf">{{ __('casilla.form_phone') }}</label>
-              <input class="casilla-form__input" type="tel" id="f-tlf" name="telefono" placeholder="600 000 000">
+              <input class="casilla-form__input" type="tel" id="f-tlf" name="telefono" placeholder="600 000 000" required pattern="[0-9 +]{9,15}" minlength="9">
+              <span class="casilla-form__error" id="err-tlf"></span>
             </div>
             <div class="casilla-form__group">
               <label class="casilla-form__label" for="f-personas">{{ __('casilla.form_people') }}</label>
-              <input class="casilla-form__input" type="number" id="f-personas" name="personas" placeholder="2" min="1" max="10">
+              <input class="casilla-form__input" type="number" id="f-personas" name="personas" placeholder="2" min="1" max="10" required>
+              <span class="casilla-form__error" id="err-personas"></span>
             </div>
           </div>
 
@@ -169,6 +173,11 @@
             {{ __('casilla.form_submit') }}
           </button>
         </form>
+
+        <div class="casilla-reserva-ok" id="reserva-ok" style="display:none;" role="alert">
+          <i class="fa-solid fa-circle-check casilla-reserva-ok__icon" aria-hidden="true"></i>
+          <p class="casilla-reserva-ok__text">Su solicitud de reserva se ha enviado correctamente. Nos pondremos en contacto con usted a la brevedad.</p>
+        </div>
 
       </div>
 
@@ -220,25 +229,41 @@
   const inputEnd   = document.getElementById('f-fecha-fin');
 
   function pad(n) { return String(n).padStart(2, '0'); }
-  function fmt(d) { return pad(d.getDate()) + '/' + pad(d.getMonth()+1) + '/' + d.getFullYear(); }
   function toISO(d){ return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
   function isSame(a, b)     { return a && b && a.toDateString() === b.toDateString(); }
   function isBetween(d,a,b) { return a && b && d > a && d < b; }
   function isPast(d)        { const t = new Date(); t.setHours(0,0,0,0); return d < t; }
 
+  function mondayOf(d) {
+    const day = d.getDay();
+    const diff = day === 0 ? -6 : 1 - day;
+    const mon = new Date(d);
+    mon.setDate(d.getDate() + diff);
+    mon.setHours(0,0,0,0);
+    return mon;
+  }
+
+  function sundayOf(mon) {
+    const sun = new Date(mon);
+    sun.setDate(mon.getDate() + 6);
+    return sun;
+  }
+
   function updateDisplay() {
     if (startDate && endDate) {
-      display.textContent = fmt(startDate) + ' → ' + fmt(endDate);
+      const sameMonth = startDate.getMonth() === endDate.getMonth() && startDate.getFullYear() === endDate.getFullYear();
+      let text;
+      if (sameMonth) {
+        text = 'Semana del ' + startDate.getDate() + ' al ' + endDate.getDate() + ' de ' + MESES[startDate.getMonth()] + ' de ' + startDate.getFullYear();
+      } else {
+        text = 'Semana del ' + startDate.getDate() + ' de ' + MESES[startDate.getMonth()] + ' al ' + endDate.getDate() + ' de ' + MESES[endDate.getMonth()] + ' de ' + endDate.getFullYear();
+      }
+      display.textContent = text;
       display.classList.remove('is-empty');
       inputStart.value = toISO(startDate);
       inputEnd.value   = toISO(endDate);
-    } else if (startDate) {
-      display.textContent = fmt(startDate) + ' → selecciona fecha fin';
-      display.classList.remove('is-empty');
-      inputStart.value = toISO(startDate);
-      inputEnd.value   = '';
     } else {
-      display.textContent = 'Selecciona las fechas en el calendario';
+      display.textContent = 'Selecciona una semana en el calendario';
       display.classList.add('is-empty');
       inputStart.value = inputEnd.value = '';
     }
@@ -269,16 +294,18 @@
       const today = new Date(); today.setHours(0,0,0,0);
       if (d.toDateString() === today.toDateString()) btn.classList.add('is-today');
       if (isPast(d))                             btn.classList.add('is-disabled');
-      if (isSame(d, startDate) && !endDate)      btn.classList.add('is-selected');
-      if (isSame(d, startDate) && endDate)       btn.classList.add('is-selected','is-range-start');
+      if (isSame(d, startDate))                  btn.classList.add('is-selected','is-range-start');
       if (isSame(d, endDate))                    btn.classList.add('is-selected','is-range-end');
       if (isBetween(d, startDate, endDate))      btn.classList.add('is-in-range');
 
       if (!isPast(d)) {
         btn.addEventListener('click', () => {
-          if (!startDate || (startDate && endDate)) { startDate = d; endDate = null; }
-          else { if (d <= startDate) { startDate = d; endDate = null; } else { endDate = d; } }
-          updateDisplay(); renderMonth();
+          const mon = mondayOf(d);
+          const sun = sundayOf(mon);
+          startDate = mon;
+          endDate   = sun;
+          updateDisplay();
+          renderMonth();
         });
       }
       grid.appendChild(btn);
@@ -295,5 +322,52 @@
   renderMonth();
   updateDisplay();
 })();
+
+// Formulario — validación y mensaje de éxito
+document.getElementById('casilla-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  let valid = true;
+
+  function fieldError(inputId, errorId, msg) {
+    const input = document.getElementById(inputId);
+    const err   = document.getElementById(errorId);
+    const group = input.closest('.casilla-form__group');
+    if (msg) {
+      err.textContent = msg;
+      err.style.display = 'block';
+      group.classList.add('has-error');
+      if (valid) { input.focus(); valid = false; }
+    } else {
+      err.textContent = '';
+      err.style.display = 'none';
+      group.classList.remove('has-error');
+    }
+  }
+
+  const nombre   = document.getElementById('f-nombre').value.trim();
+  const email    = document.getElementById('f-email').value.trim();
+  const telefono = document.getElementById('f-tlf').value.trim();
+  const personas = document.getElementById('f-personas').value.trim();
+  const fechaIni = document.getElementById('f-fecha-inicio').value;
+
+  fieldError('f-nombre',  'err-nombre',  !nombre || nombre.length < 2 ? 'El nombre es obligatorio (mínimo 2 caracteres)' : '');
+  fieldError('f-email',   'err-email',   !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'Introduce un correo electrónico válido' : '');
+  fieldError('f-tlf',     'err-tlf',     !telefono || telefono.replace(/\D/g,'').length < 9 ? 'El teléfono debe tener mínimo 9 dígitos' : '');
+  fieldError('f-personas','err-personas',!personas || personas < 1 ? 'Indica el número de personas' : '');
+
+  if (!fechaIni) {
+    valid = false;
+    document.getElementById('casilla-cal').scrollIntoView({ behavior: 'smooth' });
+    const disp = document.getElementById('dates-display');
+    disp.style.outline = '2px solid #e53e3e';
+    disp.textContent = 'Debes seleccionar una semana en el calendario';
+    setTimeout(() => { disp.style.outline = ''; }, 2500);
+  }
+
+  if (!valid) return;
+
+  this.style.display = 'none';
+  document.getElementById('reserva-ok').style.display = 'flex';
+});
 </script>
 @endpush

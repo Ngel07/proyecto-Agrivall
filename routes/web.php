@@ -9,12 +9,20 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminProductoController;
 use App\Http\Controllers\AdminPedidoController;
+use App\Http\Controllers\AdminPostController;
 
 /*
 |--------------------------------------------------------------------------
 | Rutas públicas
 |--------------------------------------------------------------------------
 */
+Route::get('/sitemap.xml', function () {
+    $posts = \App\Models\PostBlog::select('id', 'updated_at')->orderByDesc('updated_at')->get();
+    $productos = \App\Models\Producto::select('id', 'updated_at')->where('disponible', true)->get();
+    return response()->view('sitemap', compact('posts', 'productos'))
+        ->header('Content-Type', 'application/xml');
+})->name('sitemap');
+
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/productos', [PublicController::class, 'productos'])->name('productos.index');
 Route::get('/productos/{producto}', [PublicController::class, 'show'])->name('productos.show');
@@ -51,7 +59,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::resource('productos', AdminProductoController::class)->except(['show']);
     Route::resource('pedidos', AdminPedidoController::class)->only(['index', 'show']);
     Route::patch('pedidos/{pedido}/estado', [AdminPedidoController::class, 'updateEstado'])->name('pedidos.updateEstado');
-    Route::redirect('/posts',    '/admin')->name('posts.index');
+    Route::resource('posts', AdminPostController::class)->except(['show']);
     Route::redirect('/reservas', '/admin')->name('reservas.index');
 });
 
